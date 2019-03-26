@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TodoList from './components/TodoComponents/TodoList';
-import TodoForm from './components/TodoComponents/TodoForm'
+import TodoForm from './components/TodoComponents/TodoForm'  
 
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
       }],
       todo: ''
     }
-  }  
+  }
 
   inputChangeHandler = event => {
     this.setState({[event.target.name]: event.target.value})
