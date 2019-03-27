@@ -20,7 +20,7 @@ class App extends Component {
     this.addLocalStorage();
     window.addEventListener(
       "beforeunload",
-      this.saveLocalStorage.bind();
+      this.saveLocalStorage.bind()
     )
   }
 
