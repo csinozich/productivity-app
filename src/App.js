@@ -16,6 +16,35 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.addLocalStorage();
+    window.addEventListener(
+      "beforeunload",
+      this.saveLocalStorage.bind();
+    )
+  }
+
+  addLocalStorage() {
+    for (let key in this.state){
+      if (localStorage.hasOwnProperty(key)) {
+        let value = localStorage.getItem(key);
+        try {
+          value = JSON.parse(value);
+          this.setState({[key]: value})
+        }
+        catch(error) {
+          this.setState({[key]: value})
+        }
+      }
+    }
+  }
+
+  saveLocalStorage() {
+    for (let key in this.state) {
+      localStorage.setItem(key, JSON.stringify(this.state[key]))
+    }
+  }
+
   inputChangeHandler = event => {
     this.setState({[event.target.name]: event.target.value})
   }
