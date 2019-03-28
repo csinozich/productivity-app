@@ -24,6 +24,13 @@ class App extends Component {
     )
   }
 
+  componentWillUnmount() {
+    window.removeEventListener(
+      "beforeunload",
+      this.saveLocalStorage.bind(this)
+    )
+  }
+
   addLocalStorage() {
     for (let key in this.state){
       if (localStorage.hasOwnProperty(key)) {
