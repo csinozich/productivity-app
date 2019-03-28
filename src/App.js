@@ -20,7 +20,7 @@ class App extends Component {
     this.addLocalStorage();
     window.addEventListener(
       "beforeunload",
-      this.saveLocalStorage.bind()
+      this.saveLocalStorage.bind(this)
     )
   }
 
@@ -32,14 +32,14 @@ class App extends Component {
   }
 
   addLocalStorage() {
-    for (let key in this.state){
+    for (let key in this.state) {
       if (localStorage.hasOwnProperty(key)) {
         let value = localStorage.getItem(key);
         try {
           value = JSON.parse(value);
           this.setState({[key]: value})
         }
-        catch(error) {
+        catch(event) {
           this.setState({[key]: value})
         }
       }
