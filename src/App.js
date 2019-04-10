@@ -10,7 +10,7 @@ class App extends Component {
       todos: [{
         //task: '',
         //id: '',
-        //completed: false
+        //completed: false  
       }],
       todo: ''
     }
