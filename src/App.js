@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm'
+import Pomodoro from './components/TimerComponents/Pomodoro'
 
 
 class App extends Component {
@@ -10,9 +11,15 @@ class App extends Component {
       todos: [{
         //task: '',
         //id: '',
-        //completed: false  
+        //completed: false
       }],
-      todo: ''
+      todo: '',
+      restMinutes: 5,
+      workMinutes: 25,
+      seconds: 0,
+      break: false,
+      start: false,
+      interval: ''
     }
   }
 
@@ -103,6 +110,7 @@ removeItems = event => {
           inputChangeHandler={this.inputChangeHandler}
           addTask={this.addTask}
           removeItems={this.removeItems}/>
+        <Pomodoro />
       </div>
     );
   }
