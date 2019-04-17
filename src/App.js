@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TodoList from './components/TodoComponents/TodoList';
-import TodoForm from './components/TodoComponents/TodoForm'
-import Pomodoro from './components/TimerComponents/Pomodoro'
+import TodoForm from './components/TodoComponents/TodoForm';
+import Pomodoro from './components/TimerComponents/Pomodoro';
 
 
 class App extends Component {
@@ -97,6 +97,45 @@ removeItems = event => {
   })
 }
 
+timer = () => {
+  this.setState({
+    seconds: this.state.seconds === 0 ? 59 : this.state.seconds - 1
+  })
+
+  if (this.state.break) {
+    this.setState({restMinutes: this.state.seconds === 0 ? this.state.restMinutes-1 : this.state.restMinutes === 5 ? 4 : this.state.restMinutes})
+  }
+
+  if (this.state.restMinutes === -1) {
+    this.setState({restMinutes: 5, break: false})
+  }
+
+  else {
+    this.setState({workMinutes: this.state.seconds === 0 ? this.state.workMinutes -1 : this.state.workMinutes === 25 ? 24 : this.state.workMinutes})
+
+    if (this.state.workMinutes === -1) {
+      this.setState({workMinutes: 25, break: true})
+    }
+  }
+}
+
+startTimer = () => {
+      this.setState({interval: setInterval(this.timer, 1000), start: !this.state.start});
+    }
+
+pauseTimer = () => {
+  this.setState(prevState => {
+    return {
+      restMinutes: prevState.restMinutes,
+      workMinutes: prevState.workMinutes,
+      seconds: prevState.seconds,
+      break: prevState.break,
+      start: false,
+      interval: clearInterval(prevState.interval)
+    };
+  })
+}
+
   render() {
     return (
       <div className="App">
@@ -110,10 +149,17 @@ removeItems = event => {
           inputChangeHandler={this.inputChangeHandler}
           addTask={this.addTask}
           removeItems={this.removeItems}/>
-        <Pomodoro />
+        <Pomodoro
+          timer={this.timer}
+          workMinutes={this.state.workMinutes}
+          restMinutes={this.state.restMinutes}
+          seconds={this.state.seconds}
+          start={this.state.start}
+          break={this.state.break}
+          startTimer={this.startTimer}
+          pauseTimer={this.pauseTimer}/>
       </div>
     );
   }
 }
-
 export default App;
